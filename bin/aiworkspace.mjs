@@ -102,6 +102,13 @@ for (const f of ["README.md", "AGENTS.md", "setup.md", ".gitignore"]) {
   if (existsSync(src)) { cpSync(src, join(target, f)); console.log(`  ${G}+${X} ${f}`); }
 }
 
+// Attribution footer in consumer README
+const readmePath = join(target, "README.md");
+if (existsSync(readmePath)) {
+  const readme = readFileSync(readmePath, "utf8");
+  writeFileSync(readmePath, readme.trimEnd() + "\n\n---\n\nBuilt with [aiworkspace](https://github.com/a-tokyo/aiworkspace)\n");
+}
+
 // local/.gitkeep
 mkdirSync(join(target, "local"), { recursive: true });
 writeFileSync(join(target, "local", ".gitkeep"), "");

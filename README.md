@@ -94,7 +94,3 @@ Only `scripts/` is updated. Your docs, configs, skills, and `package.json` are n
 ## License
 
 Apache-2.0
-
----
-
-Built with [aiworkspace](https://github.com/a-tokyo/aiworkspace)
