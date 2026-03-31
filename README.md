@@ -2,6 +2,14 @@
 
 Manage shared AI agent skills, configs, and automation across multi-repo workspaces. Works with Cursor, Claude Code, Codex, Amp, and 40+ AI coding tools.
 
+<a href="https://npmjs.com/package/aiworkspace">
+  <img src="https://img.shields.io/npm/v/aiworkspace.svg" alt="npm version" />
+  <img src="https://img.shields.io/npm/dt/aiworkspace.svg" alt="npm downloads" />
+</a>
+<a href="https://twitter.com/intent/follow?screen_name=ahmedtokyo"><img src="https://img.shields.io/twitter/follow/ahmedtokyo.svg?label=Follow%20@ahmedtokyo" alt="Follow @ahmedtokyo" /></a>
+
+<br />
+
 **The problem**: AI agents only see the repo they run in. An agent working in a frontend repo has no visibility into the backend, API contracts, or shared conventions -- so it assumes and hallucinates. On top of that, each developer configures AI tools differently, so skills, instructions, and rules drift between projects and team members.
 
 **The solution**: A single `workspace/` repo that acts as the canonical source. Running `npm install` mirrors configs to the parent root, symlinks skills for every AI tool, and installs git hooks to keep everything in sync.
@@ -78,13 +86,11 @@ Skills are tracked in `skills-lock.json` (source + hash). On `npm install`, they
 
 ## Upgrading
 
-The workspace uses two git remotes: `origin` (your team's repo) and `upstream` (the [aiworkspace](https://github.com/a-tokyo/aiworkspace) template). Pull the latest scripts anytime:
-
 ```bash
 npm run upgrade
 ```
 
-Only `scripts/` is updated. Your docs, configs, skills, and `package.json` are not touched. See [setup.md](setup.md) for details.
+If `aiworkspace` is in `devDependencies`, this updates that package from npm and copies its `scripts/` into yours (your team's `version` field stays independent). Otherwise the workspace falls back to git: `upstream` remote + `upstream/main` for `scripts/`. `npx aiworkspace init` sets `upstream` automatically. See [setup.md](setup.md) for details.
 
 ## Requirements
 
