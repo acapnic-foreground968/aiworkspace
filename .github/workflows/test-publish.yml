@@ -53,12 +53,12 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
-          key: ubuntu-latest-node-22.x-npm-${{ hashFiles('**/package-lock.json') }}
+          key: ubuntu-latest-node-24.x-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ubuntu-latest-node-22.x-npm-
+            ubuntu-latest-node-24.x-npm-
       - uses: actions/setup-node@v4
         with:
-          node-version: '22.x'
+          node-version: '24.x'
           registry-url: https://registry.npmjs.org/
       - name: Install
         run: npm ci
