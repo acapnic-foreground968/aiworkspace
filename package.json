@@ -22,6 +22,7 @@
     "root-config/",
     ".agents/README.md",
     ".gitignore",
+    "LICENSE",
     "README.md",
     "AGENTS.md",
     "setup.md"

@@ -97,7 +97,7 @@ cpSync(join(PKG_ROOT, ".agents", "README.md"), join(target, ".agents", "README.m
 console.log(`  ${G}+${X} .agents/`);
 
 // Top-level docs
-for (const f of ["README.md", "AGENTS.md", "setup.md", ".gitignore"]) {
+for (const f of ["LICENSE", "README.md", "AGENTS.md", "setup.md", ".gitignore"]) {
   const src = join(PKG_ROOT, f);
   if (existsSync(src)) { cpSync(src, join(target, f)); console.log(`  ${G}+${X} ${f}`); }
 }
