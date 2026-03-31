@@ -1,0 +1,101 @@
+import { describe, it, afterEach } from "node:test";
+import assert from "node:assert/strict";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import { makeTmpDir, buildFakeWorkspace, runScript } from "./helpers.mjs";
+
+let tmp;
+afterEach(() => tmp?.cleanup());
+
+const addScript = (ws) => join(ws, "scripts", "skills", "add-skill.mjs");
+
+function readMockLog(logPath) {
+  if (!existsSync(logPath)) return [];
+  return readFileSync(logPath, "utf8").trim().split("\n").map(line => {
+    const [cwd, ...rest] = line.split("\t");
+    return { cwd, args: rest.join("\t") };
+  });
+}
+
+describe("add-skill", () => {
+  it("passes args through to skills CLI", () => {
+    tmp = makeTmpDir();
+    const { ws, mockLog } = buildFakeWorkspace(tmp.dir, { withMock: true });
+    runScript(addScript(ws), ["owner/repo", "--no-setup"], { cwd: ws });
+
+    const calls = readMockLog(mockLog);
+    assert.equal(calls.length, 1);
+    assert.ok(calls[0].args.includes("add"));
+    assert.ok(calls[0].args.includes("owner/repo"));
+  });
+
+  it("auto-injects --yes", () => {
+    tmp = makeTmpDir();
+    const { ws, mockLog } = buildFakeWorkspace(tmp.dir, { withMock: true });
+    runScript(addScript(ws), ["owner/repo", "--no-setup"], { cwd: ws });
+
+    const calls = readMockLog(mockLog);
+    assert.ok(calls[0].args.includes("--yes"));
+  });
+
+  it("does not inject --yes when already present", () => {
+    tmp = makeTmpDir();
+    const { ws, mockLog } = buildFakeWorkspace(tmp.dir, { withMock: true });
+    runScript(addScript(ws), ["owner/repo", "--yes", "--no-setup"], { cwd: ws });
+
+    const calls = readMockLog(mockLog);
+    const yesCount = calls[0].args.split("--yes").length - 1;
+    assert.equal(yesCount, 1);
+  });
+
+  it("does not inject --yes for --help", () => {
+    tmp = makeTmpDir();
+    const { ws, mockLog } = buildFakeWorkspace(tmp.dir, { withMock: true });
+    runScript(addScript(ws), ["--help"], { cwd: ws });
+
+    const calls = readMockLog(mockLog);
+    assert.equal(calls.length, 1);
+    assert.ok(!calls[0].args.includes("--yes"));
+  });
+
+  it("routes --project to correct cwd", () => {
+    tmp = makeTmpDir();
+    const { ws, mockLog } = buildFakeWorkspace(tmp.dir, {
+      withMock: true,
+      withProject: { name: "my-app" },
+    });
+    runScript(addScript(ws), ["owner/repo", "--project", "my-app", "--no-setup"], { cwd: ws });
+
+    const calls = readMockLog(mockLog);
+    assert.ok(calls[0].cwd.endsWith("my-app"));
+  });
+
+  it("defaults cwd to root-config without --project", () => {
+    tmp = makeTmpDir();
+    const { ws, mockLog } = buildFakeWorkspace(tmp.dir, { withMock: true });
+    runScript(addScript(ws), ["owner/repo", "--no-setup"], { cwd: ws });
+
+    const calls = readMockLog(mockLog);
+    assert.ok(calls[0].cwd.endsWith("root-config"));
+  });
+
+  it("normalizes blob URL to owner/repo", () => {
+    tmp = makeTmpDir();
+    const { ws, mockLog } = buildFakeWorkspace(tmp.dir, { withMock: true });
+    runScript(addScript(ws), [
+      "https://github.com/acme/cool-skill/blob/main/SKILL.md",
+      "--no-setup",
+    ], { cwd: ws });
+
+    const calls = readMockLog(mockLog);
+    assert.ok(calls[0].args.includes("acme/cool-skill"));
+  });
+
+  it("shows usage error without source arg", () => {
+    tmp = makeTmpDir();
+    const { ws } = buildFakeWorkspace(tmp.dir, { withMock: true });
+    const { exitCode, stderr } = runScript(addScript(ws), [], { cwd: ws });
+    assert.notEqual(exitCode, 0);
+    assert.ok(stderr.includes("Usage"));
+  });
+});
