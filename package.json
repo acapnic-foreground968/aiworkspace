@@ -1,0 +1,73 @@
+{
+  "name": "aiworkspace",
+  "version": "0.1.0",
+  "description": "Set up and manage AI agent skills and configs for Cursor, Claude Code, Codex and more across multi-repo workspaces",
+  "license": "Apache-2.0",
+  "type": "module",
+  "author": {
+    "name": "Ahmed Tokyo",
+    "email": "tokyo@ahmedtokyo.com",
+    "url": "https://www.ahmedtokyo.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/a-tokyo/aiworkspace.git"
+  },
+  "bin": {
+    "aiworkspace": "bin/aiworkspace.mjs"
+  },
+  "files": [
+    "bin/",
+    "scripts/",
+    "root-config/",
+    ".agents/README.md",
+    ".gitignore",
+    "LICENSE",
+    "README.md",
+    "AGENTS.md",
+    "setup.md"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "test": "node --test test/*.test.mjs",
+    "skills:setup": "node scripts/skills/setup-skills.mjs",
+    "skills:add": "node scripts/skills/add-skill.mjs",
+    "skills:remove": "node scripts/skills/remove-skill.mjs",
+    "skills:list": "cd root-config && skills list",
+    "skills:find": "skills find",
+    "skills:update": "skills update && cd root-config && skills update && cd .. && node scripts/skills/setup-skills.mjs",
+    "skills:create": "node scripts/skills/create-skill.mjs",
+    "skills:check": "echo workspace: && skills check && echo root-config: && cd root-config && skills check",
+    "postinstall": "node scripts/postinstall.mjs",
+    "upgrade": "node scripts/upgrade.mjs"
+  },
+  "dependencies": {
+    "skills": "^1.4.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.1.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "ai",
+    "workspace",
+    "cursor",
+    "claude",
+    "codex",
+    "antigravity",
+    "copilot",
+    "vscode",
+    "openclaw",
+    "skills",
+    "agents",
+    "multi-repo",
+    "monorepo",
+    "sdd",
+    "spec-driven-development",
+    "agentic-engineering",
+    "ai-tools"
+  ]
+}
