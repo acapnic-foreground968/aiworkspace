@@ -1,11 +1,12 @@
 name: Test Release Publish
 
-on: [push]
+on:
+  push:
+    branches: [main]
+  pull_request:
 
 permissions:
   contents: write
-  pull-requests: write
-  issues: write
 
 jobs:
   test:
