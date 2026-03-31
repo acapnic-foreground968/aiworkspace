@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * @managed by aiworkspace — https://github.com/a-tokyo/aiworkspace
- * This file is overwritten by `npm run upgrade`. Edit with care.
+ * @managed by aiworkspace — see scripts/README.md before editing.
  *
  * create-skill.mjs — Create a new manual skill scaffold.
  *
